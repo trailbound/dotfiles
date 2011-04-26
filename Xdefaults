@@ -1,0 +1,4 @@
+! Call user .Xdefaults
+!#include USER_PATH/.Xdefaults
+!*background: rgb:55/55/55
+!#if #ifdef #endif #else

@@ -1,7 +1,4 @@
-;;; Generic emacs settings I cannot live without
-
-;; Use command as the meta key
-(setq ns-command-modifier (quote meta))
+;;; Basic emacs settings
 
 ;; Don't show the startup screen
 (setq inhibit-startup-message t)
@@ -28,10 +25,15 @@
 (set-default 'fill-column 80)
 
 ;; Prevent the annoying beep on errors
-;; (setq visible-bell t)
+(setq visible-bell t)
 
-;; Make sure all backup files only live in one place
+;; Make sure all backup and autosave files only live in one place
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+
+(defvar autosave-dir "~/.emacs.d/autosaves/")
+(make-directory autosave-dir t)
+
+
 
 ;; Gotta see matching parens
 (show-paren-mode t)
@@ -41,7 +43,7 @@
 (setq truncate-partial-width-windows nil)
 
 ;; For emacsclient
-(server-start)
+;; (server-start)
 
 ;; Trailing whitespace is unnecessary
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
@@ -50,9 +52,9 @@
 (setq delete-by-moving-to-trash t)
 
 ;; `brew install aspell --lang=en` (instead of ispell)
-(setq-default ispell-program-name "aspell")
-(setq ispell-list-command "list")
-(setq ispell-extra-args '("--sug-mode=ultra"))
+;;(setq-default ispell-program-name "aspell")
+;;(setq ispell-list-command "list")
+;;(setq ispell-extra-args '("--sug-mode=ultra"))
 
 ;; zap-up-to-char, forward-to-word, backward-to-word, etc
-(require 'misc)
+;;(require 'misc)

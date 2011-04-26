@@ -6,6 +6,18 @@ if [ -e /etc/bashrc ] ; then
   . /etc/bashrc
 fi
 
+# Default user mask
+umask 002
+
+
+# Utility functions -----------------------------------------------------------
+function conditionally_execute {
+  local file=$1
+  if [ -e $file ]; then
+     . $file
+  fi
+}
+
 ############################################################
 ## PATH
 ############################################################
@@ -17,15 +29,37 @@ function conditionally_prefix_path {
   fi
 }
 
-conditionally_prefix_path /usr/local/bin
-conditionally_prefix_path /usr/local/sbin
-conditionally_prefix_path /usr/local/share/npm/bin
-conditionally_prefix_path /usr/local/mysql/bin
-conditionally_prefix_path /usr/texbin
-conditionally_prefix_path ~/bin
-conditionally_prefix_path ~/bin/private
+# set PATH so it includes the dotfiles directory
+conditionally_prefex_path ~/.dotfiles
 
-PATH=.:${PATH}
+# Set location -----------------------------------------------------------------
+if [ -e ~/.location ] ; then
+    . ~/.location
+else
+    echo "dotfiles: No user .location hook exists!"
+fi
+if [ -z "${LOCATION}" ]; then
+    echo "dotfiles: User .location hook failed to set $LOCATION"
+    export LOCATION=default
+fi
+
+# Set user include directory ---------------------------------------------------
+if [ -d ~/.dotfiles/user/${LOCATION} ]; then
+    export USER_PATH=~/.dotfiles/user/${LOCATION}
+fi
+
+conditionally_prefix_path ~/bin
+
+#conditionally_prefix_path /usr/local/bin
+#conditionally_prefix_path /usr/local/sbin
+#conditionally_prefix_path /usr/local/share/npm/bin
+#conditionally_prefix_path /usr/local/mysql/bin
+#conditionally_prefix_path /usr/texbin
+#conditionally_prefix_path ~/bin/private
+#PATH=.:${PATH}
+
+export PATH
+
 
 ############################################################
 ## MANPATH
@@ -38,34 +72,21 @@ function conditionally_prefix_manpath {
   fi
 }
 
-conditionally_prefix_manpath /usr/local/man
-conditionally_prefix_manpath ~/man
+#conditionally_prefix_manpath /usr/local/man
+#conditionally_prefix_manpath ~/man
 
 ############################################################
 ## Other paths
 ############################################################
 
-function conditionally_prefix_cdpath {
-  local dir=$1
-  if [ -d $dir ]; then
-    CDPATH="$dir:${CDPATH}"
-  fi
-}
+# Run user path additions hook
+conditionally_execute ${USER_PATH}/.path
 
-conditionally_prefix_cdpath ~/work
 
-CDPATH=.:${CDPATH}
+# Save the default path for use in external scripts
+DEFAULT_PATH="${PATH}"
+export DEFAULT_PATH
 
-# Set INFOPATH so it includes users' private info if it exists
-# if [ -d ~/info ]; then
-#   INFOPATH="~/info:${INFOPATH}"
-# fi
-
-############################################################
-## RVM
-############################################################
-
-if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
 
 ############################################################
 ## Terminal behavior
@@ -100,19 +121,10 @@ else
   }
 fi
 
-if [ `which rvm-prompt 2> /dev/null` ]; then
-  function rvm_prompt {
-    echo "($(rvm-prompt v g))"
-  }
-else
-  function rvm_prompt {
-    echo ""
-  }
-fi
 
 # Do not set PS1 for dumb terminals
 if [ "$TERM" != 'dumb'  ] && [ -n "$BASH" ]; then
-  export PS1='\[\033[32m\]\n[\s: \w] $(rvm_prompt) $(git_prompt)\n\[\033[31m\][\u@\h]\$ \[\033[00m\]'
+  export PS1='\[\033[32m\]\n[\s: \w] $(git_prompt)\n\[\033[31m\][\u@\h]\$ \[\033[00m\]'
 fi
 
 ############################################################
@@ -161,11 +173,6 @@ elif  [ -f /etc/profile.d/bash_completion ]; then
   . /etc/profile.d/bash_completion
 fi
 
-# http://onrails.org/articles/2006/11/17/rake-command-completion-using-rake
-if [ -f ~/bin/rake_completion ]; then
-  complete -C ~/bin/rake_completion -o default rake
-fi
-
 if [ -f ~/bin/git_completion ]; then
   . ~/bin/git_completion
 fi
@@ -186,3 +193,11 @@ if [[ "$USER" == '' ]]; then
   # mainly for cygwin terminals. set USER env var if not already set
   USER=$USERNAME
 fi
+
+
+# Call user .bashrc ---------------------------------------------------------------
+conditionally_execute ${USER_PATH}/.bashrc
+
+
+# Call user app hook
+conditionally_execute ${USER_PATH}/.app

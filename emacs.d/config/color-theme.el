@@ -1,8 +1,12 @@
 ;;; Pretty colors
 
 (color-theme-initialize)
-(vendor 'color-theme-ir-black)
-(color-theme-ir-black)
+
+(vendor 'color-theme-vibrant-ink)
+(color-theme-vibrant-ink)
+
+;; (vendor 'color-theme-ir-black)
+;; (color-theme-ir-black)
 
 ;; (vendor 'color-theme-arjen)
 ;; (color-theme-arjen)
@@ -25,8 +29,8 @@
 ;; (color-theme-emacs-21)
 ;; (color-theme-gtk-ide)
 
-(set-face-foreground 'region "white")
-(set-face-background 'region "slategray")
+;;(set-face-foreground 'region "white")
+;;(set-face-background 'region "slategray")
 
 (blink-cursor-mode)
 (set-cursor-color "orange")

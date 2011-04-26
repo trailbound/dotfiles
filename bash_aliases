@@ -9,6 +9,12 @@ add-alias ()
 }
 
 ############################################################
+## General
+############################################################
+alias rm='rm -i'
+
+
+############################################################
 ## List
 ############################################################
 
@@ -94,73 +100,6 @@ function st {
 alias svn-clean='find . -name .svn -print0 | xargs -0 rm -rf'
 
 ############################################################
-## OS X
-############################################################
-
-# Get rid of those pesky .DS_Store files recursively
-alias dstore-clean='find . -type f -name .DS_Store -print0 | xargs -0 rm'
-
-# Track who is listening to your iTunes music
-alias whotunes='lsof -r 2 -n -P -F n -c iTunes -a -i TCP@`hostname`:3689'
-
-############################################################
-## Ruby
-############################################################
-
-alias r="rake"
-alias a="autotest -q"
-alias aa="rake db:test:clone && a"
-alias smp="staticmatic preview ."
-
-function gemdir {
-  echo `rvm gemdir`
-}
-
-function gemfind {
-  local gems=`gemdir`/gems
-  echo `ls $gems | grep -i $1 | sort | tail -1`
-}
-
-# Use: gemcd <name>, cd's into your gems directory
-# that best matches the name provided.
-function gemcd {
-  cd `gemdir`/gems/`gemfind $1`
-}
-
-# Use: gemdoc <gem name>, opens the rdoc of the gem
-# that best matches the name provided.
-function gemdoc {
-  open `gemdir`/doc/`gemfind $1`/rdoc/index.html
-}
-
-############################################################
-## Bundler
-############################################################
-function ignore_vendor_ruby {
-  grep -q 'vendor/ruby' .gitignore > /dev/null
-  if [[ $? -ne 0 ]]; then
-    echo -e "\nvendor/ruby" >> .gitignore
-  fi
-}
-
-alias b="bundle"
-alias bi="b install --path vendor"
-alias bu="b update"
-alias be="b exec"
-alias binit="bi && bundle package && ignore_vendor_ruby"
-
-############################################################
-## Rails
-############################################################
-
-#alias rails="rails -m ~/.rails.d/template.rb"
-alias ss="script/server"
-alias sg="script/generate"
-alias sc="script/console"
-alias sr="script/rails"
-alias tl='tail -f log/development.log'
-
-############################################################
 ## Miscellaneous
 ############################################################
 
@@ -174,16 +113,10 @@ alias wgeto="wget -q -O -"
 alias sha1="openssl dgst -sha1"
 alias sha2="openssl dgst -sha256"
 alias b64="openssl enc -base64"
-alias 256color="export TERM=xterm-256color"
+#alias 256color="export TERM=xterm-256color"
 
 alias flushdns='dscacheutil -flushcache'
 
 alias whichlinux='uname -a; cat /etc/*release; cat /etc/issue'
-
-function serve {
-  local port=$1
-  : ${port:=3000}
-  ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => $port, :DocumentRoot => Dir.pwd); trap(%q(INT)) { s.shutdown }; s.start"
-}
 
 ############################################################
