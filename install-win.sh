@@ -1,42 +1,44 @@
 #!/bin/bash
-# Windows doesn't like symlinks, so we can't use them.
+# Windows doesn't like symlinks, so we can't use them for anything outside
+# of the cygwin environment.
 
 # Check or create backup directory
-if [ -d ~/.env-config/backup ]; then
+if [ -d backup ]; then
     echo "Backup directory exists"
 else
-    mkdir ~/.env-config/backup
+    mkdir backup
 fi
+
+home=`readlink -f ~`
+
+for file in *
+do
+    if [ -d $file ]; then
+	continue
+    elif [[ $file =~ install || $file =~ readme || $file =~ README || $file =~ emacs ]]; then
+	continue
+    fi
+    link_name="$home/.$file"
+    target=`readlink -f $file`
+    if [ -e $link_name ]; then
+	#cp $link_name ~/.dotfiles/backup
+	echo "Copy $link_name to backup"
+    fi
+    #ln -ns $file $link_name
+    echo "Filename $file linked from $link_name" 
+done
+
 
 # Copy files
-cp ~/.env-config/user/.location ~/.location
-
-if [ -e ~/.bash_profile ]; then
-    cp ~/.bash_profile ~/.env-config/backup
-    rm -f ~/.bash_profile
-fi
-cp ~/.env-config/.bash_profile ~/.bash_profile
-
-if [ -e ~/.bashrc ]; then
-    cp ~/.bashrc ~/.env-config/backup
-    rm -f ~/.bashrc
-fi
-cp ~/.env-config/.bashrc ~/.bashrc
+#cp ~/.dotfiles/user/.location ~/.location
 
 if [ -e ~/.emacs ]; then
-    cp ~/.emacs ~/.env-config/backup
-    rm -f ~/.emacs
+    cp ~/.emacs ~/.dotfiles/backup
 fi
-cp ~/.env-config/.emacs ~/.emacs
 
-if [ -e ~/.Xdefaults ]; then
-    cp ~/.Xdefaults ~/.env-config/backup
-    rm -f ~/.Xdefaults
-fi
-cp ~/.env-config/.Xdefaults ~/.Xdefaults
-
-if [ -e ~/.dir_colors ]; then
-    cp ~/.dir_colors ~/.env-config/backup
-    rm -f ~/.dir_colors
-fi
-cp ~/.env-config/.dir_colors ~/.dir_colors
+(
+cat <<EOF
+(add-to-list 'load-path "~/.dotfiles/emacs.d")
+(load "trailbound")
+EOF
+) > ~/.emacs

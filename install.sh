@@ -7,51 +7,27 @@ else
     mkdir backup
 fi
 
-home="~"
+home=`readlink -f ~`
 
 for file in *
 do
-    if [ -d $file ]; then
-	continue
-    elif [[ $file =~ install || $file =~ readme || $file =~ README ]]; then
+#    if [ -d $file ]; then
+#	continue
+    if [[ $file =~ install || $file =~ readme || $file =~ README || $file =~ backup ]]; then
 	continue
     fi
-    link_name="~/.$file"
-    #ln -ns $file $link_name
-    echo "Filename $file linked from $link_name" 
+    link_name="$home/.$file"
+    target=`readlink -f $file`
+    # Backup files if they exist
+    if [ -e $link_name ]; then
+	#cp $link_name ~/.dotfiles/backup
+	echo "Copy $link_name to backup"
+    fi
+    #ln -ns $target $link_name
+    echo "Filename $target linked from $link_name" 
 done
 
 
 exit
 # Copy files
-cp ~/.env-config/user/.location ~/.location
-
-if [ -e ~/.bash_profile ]; then
-    cp ~/.bash_profile ~/.env-config/backup
-    rm -f ~/.bash_profile
-fi
-ln -s ~/.env-config/.bash_profile ~/.bash_profile
-
-if [ -e ~/.bashrc ]; then
-    cp ~/.bashrc ~/.env-config/backup
-    rm -f ~/.bashrc
-fi
-ln -s ~/.env-config/.bashrc ~/.bashrc
-
-if [ -e ~/.emacs ]; then
-    cp ~/.emacs ~/.env-config/backup
-    rm -f ~/.emacs
-fi
-ln -s ~/.env-config/.emacs ~/.emacs
-
-if [ -e ~/.Xdefaults ]; then
-    cp ~/.Xdefaults ~/.env-config/backup
-    rm -f ~/.Xdefaults
-fi
-ln -s ~/.env-config/.Xdefaults ~/.Xdefaults
-
-if [ -e ~/.dir_colors ]; then
-    cp ~/.dir_colors ~/.env-config/backup
-    rm -f ~/.dir_colors
-fi
-ln -s ~/.env-config/.dir_colors ~/.dir_colors
+cp ~/.dotfiles/user/.location ~/.location
