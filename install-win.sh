@@ -21,16 +21,16 @@ do
     link_name="$home/.$file"
     target=`readlink -f $file`
     if [ -e $link_name ]; then
-	#cp $link_name ~/.dotfiles/backup
-	echo "Copy $link_name to backup"
+	mv $link_name ~/.dotfiles/backup
+	#echo "Copy $link_name to backup"
     fi
-    #ln -ns $file $link_name
-    echo "Filename $file linked from $link_name" 
+    ln -ns $target $link_name
+    #echo "Filename $file linked from $link_name" 
 done
 
 
 # Copy files
-#cp ~/.dotfiles/user/.location ~/.location
+cp ~/.dotfiles/user/.location ~/.location
 
 if [ -e ~/.emacs ]; then
     cp ~/.emacs ~/.dotfiles/backup
@@ -42,3 +42,8 @@ cat <<EOF
 (load "trailbound")
 EOF
 ) > ~/.emacs
+
+
+# Set environment variables
+
+setx HOME `cygpath -w $home`

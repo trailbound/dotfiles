@@ -1,0 +1,97 @@
+! This file is a user specific Xdefaults file
+Rxvt*geometry: 80x70
+!Rxvt*background: #222222
+!Rxvt*foreground: #dddddd
+Rxvt*scrollBar: True
+Rxvt*scrollBar_right: True
+Rxvt*font: Bitstream Vera Sans Mono-13
+Rxvt*saveLines: 50000
+Rxvt*loginShell: True
+!Lucida Console-12
+!Theme light
+!*foreground: #f2f2f2
+!*background: #101010
+!*color0:    #6c6c6c
+!*color1:    #e9897c
+!*color2:    #b6e77d
+!*color3:    #ecebbe
+!*color4:    #a9cdeb
+!*color5:    #ea96eb
+!*color6:    #c9caec
+!*color7:    #f2f2f2
+!*color8:    #747474
+!*color9:    #f99286
+!*color10:    #c3f786
+!*color11:    #fcfbcc
+!*color12:    #b6defb
+!*color13:    #fba1fb
+!*color14:    #d7d9fc
+!*color15:    #e2e2e2
+!Theme Eighteen
+Rxvt*foreground: rgb:c0/c0/c0
+Rxvt*background: rgb:22/22/22
+!*background: rgb:00/00/00
+*color0:  rgb:00/00/00
+*color1:  rgb:9e/18/28
+*color2:  rgb:5c/b2/47
+*color3:  rgb:96/8a/38
+*color4:  rgb:41/61/a0
+*color5:  rgb:9b/76/8e
+*color6:  rgb:41/91/89
+*color7:  rgb:c0/c0/c0
+*color8:  rgb:66/66/66
+*color9:  rgb:cf/61/71
+*color10: rgb:c5/f7/79
+*color11: rgb:ff/f7/96
+*color12: rgb:41/86/be
+*color13: rgb:cf/9e/be
+*color14: rgb:71/be/be
+*color15: rgb:dd/dd/dd
+
+!Theme Twenty
+!*foreground: rgb:aa/aa/aa
+!*background: rgb:00/00/00
+!*color0:     rgb:30/34/30
+!*color1:     rgb:bf/79/79
+!*color2:     rgb:97/b2/6b
+!*color3:     rgb:cd/cd/c1
+!*color4:     rgb:86/a2/be
+!*color5:     rgb:d9/b7/98
+!*color6:     rgb:a1/b5/cd
+!*color7:     rgb:ff/ff/ff
+!*color8:     rgb:cd/b5/cd
+!*color9:     rgb:f4/a4/5f
+!*color10:    rgb:c5/f7/79
+!*color11:    rgb:ff/ff/ef
+!*color12:    rgb:98/af/d9
+!*color13:    rgb:d7/d9/98
+!*color14:    rgb:a1/b5/cd
+!*color15:    rgb:de/de/de
+
+!Theme DayDream
+!*foreground:     #DDDDDD
+!*background:     #121212
+!!black
+!*color0:         #353535
+!*color8:         #666666
+!!red
+!*color1:         #AE4747
+!*color9:         #EE6363
+!!green
+!*color2:         #556B2F
+!*color10:        #9ACD32
+!!brown/yellow
+!*color3:         #DAA520
+!*color11:        #FFC125
+!!blue
+!*color4:         #6F99B4
+!*color12:        #7C96B0
+!!magenta
+!*color5:         #8B7B8B
+!*color13:        #D8BFD8
+!!cyan
+!*color6:         #A7A15E
+!*color14:        #F0E68C
+!!white
+!*color7:         #DDDDDD
+!*color15:        #FFFFFF

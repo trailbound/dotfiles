@@ -30,7 +30,7 @@ function conditionally_prefix_path {
 }
 
 # set PATH so it includes the dotfiles directory
-conditionally_prefex_path ~/.dotfiles
+conditionally_prefix_path ~/.dotfiles
 
 # Set location -----------------------------------------------------------------
 if [ -e ~/.location ] ; then
