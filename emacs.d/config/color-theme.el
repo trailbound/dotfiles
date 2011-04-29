@@ -2,11 +2,11 @@
 
 (color-theme-initialize)
 
-(vendor 'color-theme-vibrant-ink)
-(color-theme-vibrant-ink)
+;;(vendor 'color-theme-vibrant-ink)
+;;(color-theme-vibrant-ink)
 
-;; (vendor 'color-theme-ir-black)
-;; (color-theme-ir-black)
+ (vendor 'color-theme-ir-black)
+ (color-theme-ir-black)
 
 ;; (vendor 'color-theme-arjen)
 ;; (color-theme-arjen)

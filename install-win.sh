@@ -25,7 +25,7 @@ do
 	#echo "Copy $link_name to backup"
     fi
     ln -ns $target $link_name
-    #echo "Filename $file linked from $link_name" 
+    #echo "Filename $file linked from $link_name"
 done
 
 
