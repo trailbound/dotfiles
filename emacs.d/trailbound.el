@@ -1,7 +1,10 @@
-(add-to-list 'load-path "~/.emacs.d/vendor")
+;; This environment is configured for both linux and cygwin. Windows can't support symlinks, so
+;; we have to work around that via variables.
+(if (equal system-type 'windows-nt)
+    (setq dotfiles-path "~/.dotfiles/emacs.d")
+    (setq dotfiles-path "~/.emacs.d"))
 
-(setq custom-file "~/.emacs.d/config/custom.el")
-(load custom-file 'noerror)
+(add-to-list 'load-path (concat dotfiles-path "/vendor"))
 
 (load "config/theme")
 (load "config/env")
@@ -77,3 +80,7 @@
 
 ;; (vendor 'ruby-electric 'ruby-electric-mode)
 ;; (vendor 'auctex)
+
+;; Load user specific emacs customize settings --------------------------------
+(setq custom-file (concat user-path "/custom.el"))
+(load custom-file 'noerror)
