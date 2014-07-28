@@ -1,0 +1,4 @@
+# This file is used for user specific bashrc settings.
+
+# turn off the annoying X11 beep
+#xset -b
