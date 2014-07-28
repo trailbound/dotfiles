@@ -5,9 +5,9 @@
 ;; http://github.com/defunkt/emacs/blob/master/defunkt/defuns.el
 (defun vendor (library &rest autoload-functions)
   (let* ((file (symbol-name library))
-         (normal (concat "~/.emacs.d/vendor/" file))
+         (normal (concat dotfiles-path "/vendor/" file))
          (suffix (concat normal ".el"))
-         (personal (concat "~/.emacs.d/rmm5t/" file))
+         (personal (concat dotfiles-path "/config/" file))
          (found nil))
     (cond
      ((file-directory-p normal) (add-to-list 'load-path normal) (set 'found t))
@@ -20,6 +20,17 @@
         (require library)))
     (when (file-exists-p (concat personal ".el"))
       (load personal))))
+
+;; Format autosaves
+;;(defun auto-save-file-name-p (filename)
+;;  (string-match "^#.*#$" (file-name-nondirectory filename)))
+;;
+;;(defun make-auto-save-file-name ()
+;;  (concat autosave-dir
+;;    (if buffer-file-name
+;;        (concat "#" (file-name-nondirectory buffer-file-name) "#")
+;;      (expand-file-name
+;;       (concat "#%" (buffer-name) "#")))))
 
 ;; Arrows are common, especially in ruby
 (defun insert-arrow ()
