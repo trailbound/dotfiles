@@ -6,6 +6,18 @@ if [ -e /etc/bashrc ] ; then
   . /etc/bashrc
 fi
 
+# Default user mask
+umask 002
+
+
+# Utility functions -----------------------------------------------------------
+function conditionally_execute {
+  local file=$1
+  if [ -e $file ]; then
+     . $file
+  fi
+}
+
 ############################################################
 ## PATH
 ############################################################
@@ -16,6 +28,25 @@ function conditionally_prefix_path {
     PATH="$dir:${PATH}"
   fi
 }
+
+# set PATH so it includes the dotfiles directory
+conditionally_prefix_path ~/.dotfiles
+
+# Set location -----------------------------------------------------------------
+if [ -e ~/.location ] ; then
+    . ~/.location
+else
+    echo "dotfiles: No user .location hook exists!"
+fi
+if [ -z "${LOCATION}" ]; then
+    echo "dotfiles: User .location hook failed to set $LOCATION"
+    export LOCATION=default
+fi
+
+# Set user include directory ---------------------------------------------------
+if [ -d ~/.dotfiles/user/${LOCATION} ]; then
+    export USER_PATH=~/.dotfiles/user/${LOCATION}
+fi
 
 conditionally_prefix_path /usr/local/bin
 conditionally_prefix_path /usr/local/sbin
@@ -68,15 +99,10 @@ CDPATH=.:${CDPATH}
 ## General development configurations
 ###########################################################
 
-if [ `which rbenv 2> /dev/null` ]; then
-  eval "$(rbenv init -)"
-fi
+#if [ -f ~/.nvm/nvm.sh ]; then
+#  . ~/.nvm/nvm.sh
+#fi
 
-if [ -f ~/.nvm/nvm.sh ]; then
-  . ~/.nvm/nvm.sh
-fi
-
-export RBXOPT=-X19
 
 ############################################################
 ## Terminal behavior
@@ -111,35 +137,9 @@ else
   }
 fi
 
-if [ `which rbenv 2> /dev/null` ]; then
-  function ruby_prompt {
-    echo $(rbenv version-name)
-  }
-elif [ `which ruby 2> /dev/null` ]; then
-  function ruby_prompt {
-    echo $(ruby --version | cut -d' ' -f2)
-  }
-else
-  function ruby_prompt {
-    echo ""
-  }
-fi
-
-if [ `which rbenv-gemset 2> /dev/null` ]; then
-  function gemset_prompt {
-    local gemset=$(rbenv gemset active 2> /dev/null)
-    if [ $gemset ]; then
-      echo " ${gemset}"
-    fi
-  }
-else
-  function gemset_prompt {
-    echo ""
-  }
-fi
 
 if [ -n "$BASH" ]; then
-  export PS1='\[\033[32m\]\n[\s: \w] ($(ruby_prompt)$(gemset_prompt)) $(git_prompt)\n\[\033[31m\][\u@\h]\$ \[\033[00m\]'
+  export PS1='\[\033[32m\]\n[\s: \w] $(git_prompt)\n\[\033[31m\][\u@\h]\$ \[\033[00m\]'
 fi
 
 ############################################################
@@ -200,10 +200,5 @@ if [[ "$USER" == '' ]]; then
   USER=$USERNAME
 fi
 
-############################################################
-## Ruby Performance Boost (see https://gist.github.com/1688857)
-############################################################
-
-export RUBY_GC_MALLOC_LIMIT=60000000
-# export RUBY_FREE_MIN=200000 # Ruby <= 2.0
-export RUBY_GC_HEAP_FREE_SLOTS=200000 # Ruby >= 2.1
+# Call user .bashrc ---------------------------------------------------------------
+conditionally_execute ${USER_PATH}/bashrc
