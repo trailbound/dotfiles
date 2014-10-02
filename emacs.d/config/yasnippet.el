@@ -7,6 +7,7 @@
 (yas-load-directory "~/.emacs.d/vendor/yasnippet/snippets")
 (yas-load-directory "~/.emacs.d/vendor/yasnippets-rails/rails-snippets")
 (yas-load-directory "~/.emacs.d/vendor/yasnippets-shoulda")
+(yas-load-directory "~/.emacs.d/vendor/yasnippets-systemverilog/uvm-snippets")
 
 (setq yas-prompt-functions '(yas-ido-prompt
                              yas-dropdown-prompt
