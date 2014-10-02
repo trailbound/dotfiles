@@ -118,3 +118,6 @@
 [submodule "emacs.d/vendor/git-modes"]
   path = emacs.d/vendor/git-modes
   url = git://github.com/magit/git-modes.git
+[submodule "emacs.d/vendor/yasnippets-systemverilog"]
+	path = emacs.d/vendor/yasnippets-systemverilog
+	url = https://github.com/trailbound/yasnippets-systemverilog
