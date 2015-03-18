@@ -15,12 +15,12 @@
   (add-hook 'window-setup-hook 'maximize-frame t)
   (global-set-key [(meta return)] 'mf))
 
-(if (window-system)
-    (cond
-     ((fboundp 'toggle-frame-fullscreen)
-      (rmm5t-init-fullscreen))
-     ((fboundp 'ns-toggle-fullscreen)
-      (rmm5t-init-ns-fullscreen))
-     (t
-      (rmm5t-init-maxframe))
-     ))
+;;(if (window-system)
+;;    (cond
+;;     ((fboundp 'toggle-frame-fullscreen)
+;;      (rmm5t-init-fullscreen))
+;;     ((fboundp 'ns-toggle-fullscreen)
+;;      (rmm5t-init-ns-fullscreen))
+;;     (t
+;;      (rmm5t-init-maxframe))
+;;     ))
