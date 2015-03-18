@@ -1,4 +1,4 @@
-(setq custom-file "~/.emacs.d/personal/custom.el")
+(setq custom-file "~/.dotfiles/private/custom.el")
 (load custom-file 'noerror)
 
 (load "~/.emacs.d/personal/defuns")

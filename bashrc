@@ -6,6 +6,18 @@ if [ -e /etc/bashrc ] ; then
   . /etc/bashrc
 fi
 
+# Default user mask
+umask 002
+
+
+# Utility functions -----------------------------------------------------------
+function conditionally_execute {
+  local file=$1
+  if [ -e $file ]; then
+     . $file
+  fi
+}
+
 ############################################################
 ## PATH
 ############################################################
@@ -24,7 +36,6 @@ conditionally_prefix_path /usr/local/share/npm/bin
 conditionally_prefix_path /usr/local/mysql/bin
 conditionally_prefix_path /usr/local/heroku/bin
 conditionally_prefix_path /usr/texbin
-conditionally_prefix_path /usr/local/Cellar/emacs/24.4/bin/
 conditionally_prefix_path ~/bin
 conditionally_prefix_path ~/bin/private
 
@@ -140,7 +151,7 @@ else
 fi
 
 if [ -n "$BASH" ]; then
-  export PS1='\[\033[32m\]\n[\s: \w] ($(ruby_prompt)$(gemset_prompt)) $(git_prompt)\n\[\033[31m\][\u@\h]\$ \[\033[00m\]'
+  export PS1='\[\033[32m\]\n[\s: \w] $(git_prompt)\n\[\033[31m\][\u@\h]\$ \[\033[00m\]'
 fi
 
 ############################################################
@@ -208,3 +219,6 @@ fi
 export RUBY_GC_MALLOC_LIMIT=60000000
 # export RUBY_FREE_MIN=200000 # Ruby <= 2.0
 export RUBY_GC_HEAP_FREE_SLOTS=200000 # Ruby >= 2.1
+
+# Call local .bashrc ---------------------------------------------------------------
+conditionally_execute ~/.dotfiles/private/bashrc
