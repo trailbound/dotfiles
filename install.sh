@@ -13,7 +13,7 @@ for file in *
 do
 #    if [ -d $file ]; then
 #	continue
-    if [[ $file =~ install || $file =~ readme || $file =~ README || $file =~ backup || $file =~ location ]]; then
+    if [[ $file =~ install || $file =~ readme || $file =~ README || $file =~ backup || $file =~ toolprompt ]]; then
       continue
     fi
     link_name="$home/.$file"
