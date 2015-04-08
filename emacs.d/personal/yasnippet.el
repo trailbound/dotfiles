@@ -12,6 +12,6 @@
                              yas-dropdown-prompt
                              yas-completing-prompt))
 
-;; (add-hook 'yas-minor-mode-hook
-;;           (lambda () (define-key yas-minor-mode-map
-;;                        (kbd "TAB") 'smart-tab))) ; was yas-expand
+(add-hook 'yas-minor-mode-hook
+          (lambda () (define-key yas-minor-mode-map
+                       (kbd "<tab>") 'smart-tab))) ; was yas-expand
