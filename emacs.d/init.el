@@ -29,6 +29,7 @@
 (personal 'saveplace)
 (personal 'scratch)
 (personal 'server-mode)
+(personal 'session-management)
 (personal 'shell-mode)
 (personal 'tabs)
 (personal 'theme)

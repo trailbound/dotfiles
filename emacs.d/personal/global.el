@@ -45,9 +45,9 @@
 ;; Gotta see matching parens
 (show-paren-mode t)
 
-;; Don't truncate lines
-(setq truncate-lines t)
-(setq truncate-partial-width-windows nil)
+;; Do truncate lines
+(setq-default truncate-lines t)
+;; (setq truncate-partial-width-windows nil)
 
 ;; For emacsclient
 (server-start)

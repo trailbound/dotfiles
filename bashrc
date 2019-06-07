@@ -7,7 +7,7 @@ if [ -e /etc/bashrc ] ; then
 fi
 
 # Default user mask
-umask 002
+umask 022
 
 
 # Utility functions -----------------------------------------------------------

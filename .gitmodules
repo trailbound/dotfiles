@@ -1,6 +1,7 @@
 [submodule "emacs.d/vendor/filladapt"]
-  path = emacs.d/vendor/filladapt
-  url = git://github.com/emacsmirror/filladapt.git
+	path = emacs.d/vendor/filladapt
+	url = git://github.com/emacsmirror/filladapt.git
+	branch = master
 [submodule "emacs.d/vendor/ri-emacs"]
   path = emacs.d/vendor/ri-emacs
   url = git://github.com/pedz/ri-emacs.git
@@ -9,7 +10,7 @@
   url = git://github.com/talison/jekyll.el.git
 [submodule "emacs.d/vendor/revbufs"]
   path = emacs.d/vendor/revbufs
-  url = https://github.com/emacsmirror/revbufs.git
+  url = https://github.com/emacsattic/revbufs.git
 [submodule "emacs.d/vendor/projectile"]
 	path = emacs.d/vendor/projectile
 	url = https://github.com/bbatsov/projectile.git

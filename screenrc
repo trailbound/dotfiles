@@ -31,3 +31,5 @@ termcapinfo xterm* ti@:te@
 # fix backspace
 termcapinfo xterm* 'bc@:bs@'
 
+# SSH Agent Forwarding
+setenv SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
