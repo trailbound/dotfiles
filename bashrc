@@ -220,5 +220,26 @@ export RUBY_GC_MALLOC_LIMIT=60000000
 # export RUBY_FREE_MIN=200000 # Ruby <= 2.0
 export RUBY_GC_HEAP_FREE_SLOTS=200000 # Ruby >= 2.1
 
+
+############################################################
+## SSH
+############################################################
+# Start SSH Agent
+if [[ $- == *i* ]]; then
+  SSHAGENT=/usr/bin/ssh-agent
+  SSHAGENTARGS="-s"
+  if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
+    eval `$SSHAGENT $SSHAGENTARGS`
+    trap "kill $SSH_AGENT_PID" 0
+  fi
+fi
+
+# Update symlink to SSH_AUTH_SOCK for GNU Screen and other persistent logins
+if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
+  ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+
+
 # Call local .bashrc ---------------------------------------------------------------
 conditionally_execute ~/.dotfiles/private/bashrc

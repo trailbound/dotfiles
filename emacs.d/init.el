@@ -1,3 +1,10 @@
+(setq pre-init-file "~/.dotfiles/private/pre-init.el")
+(setq post-init-file "~/.dotfiles/private/post-init.el")
+
+;; Load the pre-initialization settings file
+(load pre-init-file 'noerror)
+
+;; Set the customizations file
 (setq custom-file "~/.dotfiles/private/custom.el")
 (load custom-file 'noerror)
 
@@ -86,3 +93,6 @@
 (vendor 'mode-line-bell)
 (vendor 'rcodetools    'xmp)
 (vendor 'revbufs       'revbufs)
+
+;; Load the post initialization settings file
+(load post-init-file 'noerror)
